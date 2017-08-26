@@ -9,7 +9,10 @@
         <md-card-content>
           <md-list>
             <md-list-item v-for="element in list.elements" :key="element.id">
-              <md-icon @click.native="onRemoveClick(element.id)">delete</md-icon>
+              <div>
+                <md-icon @click.native="editElementName(element)">mode_edit</md-icon>
+                <md-icon @click.native="onRemoveClick(element.id)">delete</md-icon>
+              </div>
               <md-checkbox v-model="element.completed" :class="{ completed: element.completed }" @change="checkElement(element.id)">{{ element.name }}</md-checkbox>
             </md-list-item>
           </md-list>
@@ -24,15 +27,16 @@
       md-title="Edit List Name"
       md-ok-text="OK"
       md-cancel-text="CANCEL"
-      ref="editListNameDialog"
+      ref="renameListDialog"
       v-model="listName">
     </md-dialog-prompt>
     <md-dialog-prompt
       md-title="Edit Element Name"
       md-ok-text="OK"
       md-cancel-text="CANCEL"
-      ref="editListElementNameDialog"
-      value="">
+      ref="renameElementDialog"
+      @close="renameElementDialogClose"
+      v-model="newElementName">
     </md-dialog-prompt>
   </md-layout>
 </template>
@@ -43,7 +47,9 @@
   export default {
     data () {
       return {
-        elementName: ''
+        elementName: '',
+        newElementName: '',
+        elementId: null
       }
     },
     computed: {
@@ -64,7 +70,7 @@
       }
     },
     methods: {
-      ...mapActions(['addElementToList', 'checkListElement', 'removeElementFromList', 'changeListName']),
+      ...mapActions(['addElementToList', 'checkListElement', 'removeElementFromList', 'changeListName', 'renameListElement']),
       addElement (e) {
         if (!e.target.value.trim()) {
           return
@@ -79,7 +85,17 @@
         this.removeElementFromList({ listId: this.listId, elementId })
       },
       editListName () {
-        this.$refs.editListNameDialog.open()
+        this.$refs.renameListDialog.open()
+      },
+      editElementName (element) {
+        this.newElementName = element.name
+        this.elementId = element.id
+        this.$refs.renameElementDialog.open()
+      },
+      renameElementDialogClose (type) {
+        if (type === 'ok') {
+          this.renameListElement({ listId: this.listId, elementId: this.elementId, name: this.newElementName })
+        }
       }
     }
   }
@@ -93,6 +109,10 @@
 
   .md-card {
     width: 100%;
+  }
+
+  .md-checkbox {
+    width: 85%;
   }
 
   .md-input-container {
