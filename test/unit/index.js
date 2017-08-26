@@ -1,4 +1,22 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
+import VueMaterial from 'vue-material'
+
+// Mock router components
+const routerView = {
+  name: 'router-view',
+  render: h => h('div')
+}
+
+const routerLink = {
+  name: 'router-link',
+  render: h => h('div')
+}
+
+Vue.use(VueMaterial)
+Vue.use(Vuex)
+Vue.component('router-view', routerView)
+Vue.component('router-link', routerLink)
 
 Vue.config.productionTip = false
 

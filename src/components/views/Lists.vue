@@ -2,7 +2,7 @@
   <div>
     <md-layout md-align="center">
       <md-layout md-flex="80">
-        <div v-if="!lists.length" class="md-subheading">Looks like you have not lists yet, click the '+' button to start adding!</div>
+        <div v-if="!lists.length" class="md-subheading">Looks like you have no lists yet, click the '+' button to start adding!</div>
         <div v-else class="md-subheading">My Lists</div>
         <md-layout md-flex="33" md-gutter v-for="list in lists" :key="list.id">
           <md-card>
