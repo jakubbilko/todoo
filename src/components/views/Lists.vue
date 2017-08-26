@@ -8,6 +8,7 @@
               <div class="md-title">{{ list.name }}</div>
             </md-card-header>
             <md-card-actions>
+              <md-button @click.prevent="removeListClicked(list.id)" class="md-raised md-warn">Remove</md-button>
               <router-link tag="md-button" :to="{ name: 'List', params: { id: list.id }}" class="md-raised md-primary">View/Edit</router-link>
             </md-card-actions>
           </md-card>
@@ -21,8 +22,7 @@
       ref="addDialog"
       v-model="newListName"
       @close="dialogClosed"
-      value=""
-    >
+      value="">
     </md-dialog-prompt>
     <md-button @click="openDialog('addDialog')" class="md-fab md-fab-bottom-right">
       <md-tooltip md-direction="top">Add List</md-tooltip>
@@ -44,7 +44,7 @@
       ...mapGetters(['getLatestListId', 'lists'])
     },
     methods: {
-      ...mapMutations(['addList']),
+      ...mapMutations(['addList', 'removeList']),
       openDialog (ref) {
         this.$refs[ref].open()
       },
@@ -58,6 +58,9 @@
             }
           })
         }
+      },
+      removeListClicked (listId) {
+        this.removeList(listId)
       }
     }
   }

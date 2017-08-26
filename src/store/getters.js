@@ -13,6 +13,6 @@ export function getListById (state) {
 export function getListElementById (state, getters) {
   return (listId, elementId) => {
     const list = getters.getListById(listId)
-    return list.children.find(c => c.id === elementId)
+    return list.elements.find(c => c.id === elementId)
   }
 }

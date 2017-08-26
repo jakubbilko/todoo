@@ -7,8 +7,9 @@
         </md-card-header>
         <md-card-content>
           <md-list>
-            <md-list-item :class="{ completed: child.completed }" v-for="child in list.children" :key="child.id">
-              <md-checkbox @change="checkElement(child.id)">{{ child.name }}</md-checkbox>
+            <md-list-item v-for="element in list.elements" :key="element.id">
+              <md-icon @click.native="onRemoveClick(element.id)">delete</md-icon>
+              <md-checkbox v-model="element.completed" :class="{ completed: element.completed }" @change="checkElement(element.id)">{{ element.name }}</md-checkbox>
             </md-list-item>
           </md-list>
         </md-card-content>
@@ -40,7 +41,7 @@
       }
     },
     methods: {
-      ...mapActions(['addElementToList', 'checkListElement']),
+      ...mapActions(['addElementToList', 'checkListElement', 'removeElementFromList']),
       addElement (e) {
         if (!e.target.value.trim()) {
           return
@@ -50,6 +51,9 @@
       },
       checkElement (elementId) {
         this.checkListElement({ listId: this.listId, elementId })
+      },
+      onRemoveClick (elementId) {
+        this.removeElementFromList({ listId: this.listId, elementId })
       }
     }
   }
@@ -73,6 +77,10 @@
 
   .completed {
     text-decoration: line-through;
+  }
+
+  .md-icon {
+    cursor: pointer;
   }
 
 </style>
