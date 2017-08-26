@@ -1,3 +1,8 @@
+export function changeListName ({commit, getters}, payload) {
+  const list = getters.getListById(payload.listId)
+  commit('changeListName', { list, name: payload.name })
+}
+
 export function addElementToList ({commit, getters}, payload) {
   const list = getters.getListById(payload.listId)
   commit('addElementToList', { list, name: payload.name })

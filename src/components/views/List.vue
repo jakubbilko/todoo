@@ -3,7 +3,8 @@
     <md-layout md-flex="50">
       <md-card>
         <md-card-header>
-           <div class="md-title">{{ list.name }}</div>
+          <md-icon @click.native="editListName" class="edit-icon">mode_edit</md-icon>
+          <div class="md-title">{{ listName }}</div>
         </md-card-header>
         <md-card-content>
           <md-list>
@@ -19,6 +20,20 @@
         </md-input-container>
       </md-card>
     </md-layout>
+    <md-dialog-prompt
+      md-title="Edit List Name"
+      md-ok-text="OK"
+      md-cancel-text="CANCEL"
+      ref="editListNameDialog"
+      v-model="listName">
+    </md-dialog-prompt>
+    <md-dialog-prompt
+      md-title="Edit Element Name"
+      md-ok-text="OK"
+      md-cancel-text="CANCEL"
+      ref="editListElementNameDialog"
+      value="">
+    </md-dialog-prompt>
   </md-layout>
 </template>
 
@@ -38,10 +53,18 @@
       },
       list () {
         return this.getListById(this.listId)
+      },
+      listName: {
+        get () {
+          return this.list.name
+        },
+        set (value) {
+          this.changeListName({ listId: this.listId, name: value })
+        }
       }
     },
     methods: {
-      ...mapActions(['addElementToList', 'checkListElement', 'removeElementFromList']),
+      ...mapActions(['addElementToList', 'checkListElement', 'removeElementFromList', 'changeListName']),
       addElement (e) {
         if (!e.target.value.trim()) {
           return
@@ -54,6 +77,9 @@
       },
       onRemoveClick (elementId) {
         this.removeElementFromList({ listId: this.listId, elementId })
+      },
+      editListName () {
+        this.$refs.editListNameDialog.open()
       }
     }
   }
@@ -81,6 +107,12 @@
 
   .md-icon {
     cursor: pointer;
+  }
+
+  .edit-icon {
+    float: left;
+    margin-right: 10px;
+    transform: translateY(3px);
   }
 
 </style>

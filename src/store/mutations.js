@@ -3,6 +3,12 @@ export function addList (state, name) {
   state.lists.push(list)
 }
 
+export function changeListName (state, payload) {
+  const { list, name } = payload
+  console.log(list, name)
+  list.name = name
+}
+
 export function addElementToList (state, payload) {
   const { list, name } = payload
   list.elements.push({ id: list.elements.length + 1, name, completed: false })
