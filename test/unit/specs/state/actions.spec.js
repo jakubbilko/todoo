@@ -44,6 +44,11 @@ const testAction = (action, args, state, expectedMutations, done) => {
 }
 
 describe('Actions', () => {
+  it('changeListName', (done) => {
+    const state = store.state
+    testAction(actions.changeListName, { name: 'newlist', listId: 1 }, state, [{ type: 'changeListName' }], done)
+  })
+
   it('addElementToList', (done) => {
     const state = store.state
     testAction(actions.addElementToList, { name: 'element', listId: 1 }, state, [{ type: 'addElementToList' }], done)
@@ -52,6 +57,11 @@ describe('Actions', () => {
   it('checkListElement', (done) => {
     const state = store.state
     testAction(actions.checkListElement, { elementId: 1, listId: 1 }, state, [{ type: 'checkListElement' }], done)
+  })
+
+  it('renameListElement', (done) => {
+    const state = store.state
+    testAction(actions.renameListElement, { elementId: 1, listId: 1, name: 'newelement' }, state, [{ type: 'renameListElement' }], done)
   })
 
   it('removeElementFromList', (done) => {

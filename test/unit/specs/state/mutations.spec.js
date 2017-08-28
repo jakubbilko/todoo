@@ -10,10 +10,20 @@ describe('Mutations', () => {
     expect(state.lists[0].name).to.equal('list')
   })
 
+  it('changeListName', () => {
+    mutations.changeListName(state, { list: state.lists[0], name: 'newlist' })
+    expect(state.lists[0].name).to.equal('newlist')
+  })
+
   it('addElementToList', () => {
     mutations.addElementToList(state, { list: state.lists[0], name: 'element' })
     expect(state.lists[0].elements.length).to.equal(1)
     expect(state.lists[0].elements[0].name).to.equal('element')
+  })
+
+  it('renameListElement', () => {
+    mutations.renameListElement(state, { element: state.lists[0].elements[0], name: 'newelement' })
+    expect(state.lists[0].elements[0].name).to.equal('newelement')
   })
 
   it('checkListElement', () => {
