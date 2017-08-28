@@ -8,7 +8,7 @@
         </md-card-header>
         <md-card-content>
           <md-list>
-            <md-list-item v-for="element in list.elements" :key="element.id">
+            <md-list-item v-for="element in elements" :key="element.id">
               <div>
                 <md-icon @click.native="editElementName(element)">mode_edit</md-icon>
                 <md-icon @click.native="onRemoveClick(element.id)">delete</md-icon>
@@ -22,6 +22,11 @@
           <md-input v-model="elementName" @keyup.native.enter="addElement"></md-input>
         </md-input-container>
       </md-card>
+      <div class="radios">
+        <md-radio v-model="filter" md-value="all">All</md-radio>
+        <md-radio v-model="filter" md-value="complete">Complete</md-radio>
+        <md-radio v-model="filter" md-value="incomplete">Incomplete</md-radio>
+      </div>
     </md-layout>
     <md-dialog-prompt
       md-title="Edit List Name"
@@ -49,7 +54,8 @@
       return {
         elementName: '',
         newElementName: '',
-        elementId: null
+        elementId: null,
+        filter: 'all'
       }
     },
     computed: {
@@ -59,6 +65,14 @@
       },
       list () {
         return this.getListById(this.listId)
+      },
+      elements () {
+        if (this.filter === 'complete') {
+          return this.list.elements.filter(e => e.completed)
+        } else if (this.filter === 'incomplete') {
+          return this.list.elements.filter(e => !e.completed)
+        }
+        return this.list.elements
       },
       listName: {
         get () {
@@ -133,6 +147,12 @@
     float: left;
     margin-right: 10px;
     transform: translateY(3px);
+  }
+
+  .radios {
+    padding: 16px;
+    width: 100%;
+    text-align: center;
   }
 
 </style>
