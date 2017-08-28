@@ -10,7 +10,7 @@ export default new Router({
       component: Application,
       children: [
         {
-          path: 'lists',
+          path: '',
           name: 'Lists',
           component: Lists
         },
