@@ -1,6 +1,6 @@
-# todoo
+# VueJS todo app
 
-> A vueJs todos app
+> A vueJs todos test app. It allows to create todo lists and add elements to them. It also supports filtering of the lists and list elements. The data is saved on the computer via LocalStorage.
 
 ## Build Setup
 
@@ -10,18 +10,14 @@ npm install
 
 # serve with hot reload at localhost:8080
 npm run dev
+```
 
-# build for production with minification
-npm run build
+## Running tests
 
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run all tests
+``` bash
 npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Browser compatibility
+
+Test under the latest versions of Chrome and Firefox
