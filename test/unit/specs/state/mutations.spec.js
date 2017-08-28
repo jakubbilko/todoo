@@ -4,6 +4,13 @@ import * as mutations from '@/store/mutations'
 const state = { lists: [] }
 
 describe('Mutations', () => {
+  it('setLists', () => {
+    const tempState = { lists: [] }
+    mutations.setLists(tempState, [{ name: 'list' }])
+    expect(tempState.lists.length).to.equal(1)
+    expect(tempState.lists[0].name).to.equal('list')
+  })
+
   it('addList', () => {
     mutations.addList(state, 'list')
     expect(state.lists.length).to.equal(1)

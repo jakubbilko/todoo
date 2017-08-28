@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueMaterial from 'vue-material'
+import VueLocalStorage from 'vue-localstorage'
 
 // Mock router components
 const routerView = {
@@ -15,6 +16,7 @@ const routerLink = {
 
 Vue.use(VueMaterial)
 Vue.use(Vuex)
+Vue.use(VueLocalStorage)
 Vue.component('router-view', routerView)
 Vue.component('router-link', routerLink)
 

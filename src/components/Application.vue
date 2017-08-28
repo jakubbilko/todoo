@@ -9,9 +9,14 @@
 </template>
 
 <script>
-export default {
-}
-</script>
+  import { mapActions } from 'vuex'
 
-<style lang="css">
-</style>
+  export default {
+    methods: {
+      ...mapActions(['getStateFromLS'])
+    },
+    mounted () {
+      this.getStateFromLS(this.$localStorage)
+    }
+  }
+</script>

@@ -4,6 +4,7 @@ import { expect } from 'chai'
 import * as actions from '@/store/actions'
 import * as mutations from '@/store/mutations'
 import * as getters from '@/store/getters'
+import LocalStoragePlugin from '@/store/plugins/LocalStorage'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ const store = new Vuex.Store({
   state,
   actions,
   mutations,
-  getters
+  getters,
+  plugins: [LocalStoragePlugin]
 })
 
 const testAction = (action, args, state, expectedMutations, done) => {

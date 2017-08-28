@@ -1,3 +1,7 @@
+export function setLists (state, lists) {
+  state.lists = lists
+}
+
 export function addList (state, name) {
   const list = { id: state.lists.length + 1, name, elements: [] }
   state.lists.push(list)

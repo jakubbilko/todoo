@@ -4,7 +4,7 @@
       <md-layout md-flex="80">
         <div v-if="!lists.length" class="md-subheading">Looks like you have no lists yet, click the '+' button to start adding!</div>
         <div v-else class="md-subheading">My Lists</div>
-        <md-layout md-flex="33" md-gutter v-for="list in lists" :key="list.id">
+        <md-layout md-flex="33" md-gutter v-for="list in filteredLists" :key="list.id">
           <md-card>
             <md-card-header>
               <div class="md-title">{{ list.name }}</div>
@@ -15,6 +15,12 @@
             </md-card-actions>
           </md-card>
         </md-layout>
+        <div v-if="lists.length" class="search">
+          <md-input-container md-inline>
+            <label>Search lists</label>
+            <md-input v-model="searchTerm"></md-input>
+          </md-input-container>
+        </div>
       </md-layout>
     </md-layout>
     <md-dialog-prompt
@@ -39,11 +45,21 @@
   export default {
     data () {
       return {
-        newListName: ''
+        newListName: '',
+        searchTerm: ''
       }
     },
     computed: {
-      ...mapGetters(['getLatestListId', 'lists'])
+      ...mapGetters(['getLatestListId', 'lists']),
+      filteredLists () {
+        let lists = this.lists
+
+        if (this.searchTerm) {
+          return lists.filter(e => e.name.match(this.searchTerm))
+        }
+
+        return lists
+      }
     },
     methods: {
       ...mapMutations(['addList', 'removeList']),
@@ -82,6 +98,15 @@
   .md-subheading {
     width: 100%;
     text-align: center;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .search .md-input-container {
+    width: 60%;
+    margin: auto;
   }
 
 </style>

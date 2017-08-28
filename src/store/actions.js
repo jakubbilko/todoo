@@ -1,3 +1,8 @@
+export function getStateFromLS ({commit}, adapter) {
+  const lists = adapter.get('VueTodoL') || '[]'
+  commit('setLists', JSON.parse(lists))
+}
+
 export function changeListName ({commit, getters}, payload) {
   const list = getters.getListById(payload.listId)
   commit('changeListName', { list, name: payload.name })
