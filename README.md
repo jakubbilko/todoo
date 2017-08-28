@@ -20,4 +20,4 @@ npm test
 
 ## Browser compatibility
 
-Test under the latest versions of Chrome and Firefox
+Tested under the latest versions of Chrome and Firefox
