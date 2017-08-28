@@ -27,6 +27,12 @@
         <md-radio v-model="filter" md-value="complete">Complete</md-radio>
         <md-radio v-model="filter" md-value="incomplete">Incomplete</md-radio>
       </div>
+      <div class="search">
+        <md-input-container md-inline>
+          <label>Search todos</label>
+          <md-input v-model="searchTerm"></md-input>
+        </md-input-container>
+      </div>
     </md-layout>
     <md-dialog-prompt
       md-title="Edit List Name"
@@ -55,7 +61,8 @@
         elementName: '',
         newElementName: '',
         elementId: null,
-        filter: 'all'
+        filter: 'all',
+        searchTerm: ''
       }
     },
     computed: {
@@ -67,12 +74,18 @@
         return this.getListById(this.listId)
       },
       elements () {
-        if (this.filter === 'complete') {
-          return this.list.elements.filter(e => e.completed)
-        } else if (this.filter === 'incomplete') {
-          return this.list.elements.filter(e => !e.completed)
+        let elements = this.list.elements
+
+        if (this.searchTerm) {
+          elements = this.list.elements.filter(e => e.name.match(this.searchTerm))
         }
-        return this.list.elements
+
+        if (this.filter === 'complete') {
+          return elements.filter(e => e.completed)
+        } else if (this.filter === 'incomplete') {
+          return elements.filter(e => !e.completed)
+        }
+        return elements
       },
       listName: {
         get () {
@@ -149,10 +162,15 @@
     transform: translateY(3px);
   }
 
-  .radios {
+  .radios, .search {
     padding: 16px;
-    width: 100%;
+    width: 50%;
+    float: left;
     text-align: center;
+  }
+
+  .search {
+    padding-top: 10px;
   }
 
 </style>
